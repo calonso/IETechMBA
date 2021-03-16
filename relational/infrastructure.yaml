@@ -1,0 +1,11 @@
+Resources:
+  DatabaseCluster:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      Engine: aurora
+      EngineMode: serverless
+      MasterUsername: root
+      MasterUserPassword: rootAtTechmba
+      EnableHttpEndpoint: true
+      DBClusterIdentifier: TechMBATestCluster
+      DatabaseName: Uber
