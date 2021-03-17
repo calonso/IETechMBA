@@ -18,7 +18,7 @@ I have created all the definition for you, all you need this time is to create t
    1. Enter a stack name of your choice (e.g: 'RelationalLabStack'). Click Next again
    1. Nothing to do in this 'Configure stack options' screen. Just click 'Next'
    1. Nothing to do in this 'Review' screen. Just scroll to the bottom and click 'Create stack'
-   1. Creation process should finish successfully after ~5 minutes.
+   1. Creation process should finish successfully after ~5 minutes. Take a look at the `infrastructure.yaml` file and what you see on screen (click the refresh button often) to understand what is being created.
 1. Now let's run some queries on our new database.    
    1. Click 'Services' and then 'RDS' to open the RDS (Relational Database Service) console.
    1. Click the 'Databases' menu on the left hand. Then you should see the newly created `techmbatestcluster` cluster. Play around a little bit to understand what's at hand.
@@ -47,6 +47,6 @@ I have created all the definition for you, all you need this time is to create t
         USE Uber;
         SELECT brand, model, color FROM cars;
       ```
-1. Challenge! Can you tell:
-   1. Which is the driver that drove the most trips?
-   1. Which is the user that took the most trips?
+1. Activity: 
+   1. Can you tell which is the user that took the most trips? Tip: See [MySQL `COUNT()` aggregation](https://dev.mysql.com/doc/refman/8.0/en/aggregate-functions.html#function_count)
+   1. Can you tell which is the `MAX`imum `COUNT` of shifts a driver has ever drove?

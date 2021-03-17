@@ -1,0 +1,90 @@
+db.clients.remove({})
+db.drivers.remove({})
+
+db.clients.insertMany([
+   {
+     _id: 1,
+     email: "jane.doe@example.org",
+     name: "Jane Doe",
+     phone_number: "+34 111111",
+     gender: "Female",
+     trips: [
+     {
+       pick_up: "40.054587,19.65899",
+       drop_off: "41.2548,19.55487",
+       driver: { name: "Harry Potter" },
+       car: { brand: "Ford", model: "Mustang"}
+     },
+     {
+       pick_up: "40.15338,10.78459",
+       drop_off: "41.2548,18.44587",
+       driver: { name: "Arwen Undomiel" },
+       car: { brand: "Ford", model: "Focus"}
+     }]
+   },
+   {
+    _id: 2,
+    email: "john.doe@example.org",
+    name: "John Doe",
+    phone_number: "+44 555555",
+    gender: "Female",
+    trips: [
+    {
+      pick_up: "40.054587,19.65899",
+      drop_off: "41.2548,19.55487",
+      driver: { name: "Alice" },
+      car: { brand: "Renault", model: "Clio"}
+    },
+    {
+      pick_up: "40.15338,10.78459",
+      drop_off: "41.2548,18.44587",
+      driver: { name: "Arwen Undomiel" },
+      car: { brand: "Ford", model: "Focus"}
+    }]
+  }
+])
+
+db.drivers.insertMany([
+   {
+     _id: 1,
+     email: "arwen.undomiel@example.org",
+     name: "Arwen Undomiel",
+     trips: [
+     {
+       pick_up: "40.054587,19.65899",
+       drop_off: "41.2548,19.55487",
+       client: { name: "Jane Doe" },
+       car: { brand: "Ford", model: "Focus"}
+     },
+     {
+       pick_up: "40.15338,10.78459",
+       drop_off: "41.2548,18.44587",
+       client: { name: "John Doe" },
+       car: { brand: "Ford", model: "Focus"}
+     }]
+   },
+   {
+    _id: 2,
+    email: "alice@example.org",
+    name: "Alice",
+    trips: [
+    {
+      pick_up: "40.054587,19.65899",
+      drop_off: "41.2548,19.55487",
+      client: { name: "John Doe" },
+      car: { brand: "Renault", model: "Clio"}
+    }]
+  },
+      {
+       _id: 3,
+       email: "harry.potter@example.org",
+       name: "Harry Potter",
+       trips: [
+       {
+         pick_up: "40.054587,19.65899",
+         drop_off: "41.2548,19.55487",
+         client: { name: "Jane Doe" },
+         car: { brand: "Ford", model: "Mustang"}
+       }]
+     }
+])
