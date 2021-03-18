@@ -1,0 +1,12 @@
+Resources:
+  dynamoDBTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Drivers
+      AttributeDefinitions:
+        - AttributeName: name
+          AttributeType: S
+      KeySchema:
+        - AttributeName: name
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
