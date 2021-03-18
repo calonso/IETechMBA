@@ -9,7 +9,7 @@ To create we'll use [AWS Cloudformation](https://aws.amazon.com/cloudformation/)
 I have created all the definition for you, all you need this time is to create the infrastructure that I've defined for you in your personal or student AWS account.
 
 1. Sign in to [your AWS console](https://aws.amazon.com/console/)
-1. Click 'Services' and then 'CloudFormation' to open the CloudFormation service.
+1. Navigate to [Clouformation console](https://console.aws.amazon.com/cloudformation/home)
 1. Now, let's create a new stack (a named container for all the resources we need).
    1. Click 'Create stack' and then select 'With new resources (standard)' option
    1. Select 'Template is ready' and 'Upload a template file'

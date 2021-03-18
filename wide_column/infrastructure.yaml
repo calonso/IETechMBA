@@ -1,0 +1,37 @@
+Resources:
+  UberKeyspace:
+    Type: AWS::Cassandra::Keyspace
+    Properties:
+      KeyspaceName: uber
+
+  TripsTable:
+    Type: AWS::Cassandra::Table
+    Properties:
+      KeyspaceName: !Ref UberKeyspace
+      PartitionKeyColumns:
+        - ColumnName: name
+          ColumnType: varchar
+      ClusteringKeyColumns:
+        - Column:
+            ColumnName: date
+            ColumnType: timestamp
+      TableName: trips
+      RegularColumns:
+        - ColumnName: car
+          ColumnType: varchar
+        - ColumnName: client
+          ColumnType: varchar
+
+  DriversTable:
+    Type: AWS::Cassandra::Table
+    Properties:
+      KeyspaceName: !Ref UberKeyspace
+      PartitionKeyColumns:
+        - ColumnName: name
+          ColumnType: varchar
+      TableName: drivers
+      RegularColumns:
+        - ColumnName: car
+          ColumnType: varchar
+        - ColumnName: phone_no
+          ColumnType: varchar
