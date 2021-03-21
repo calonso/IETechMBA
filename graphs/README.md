@@ -1,5 +1,5 @@
 # Graph databases lab
-In this lab we'll have the opportunity to get hands on experience with a relational database. [AWS Neptune](https://aws.amazon.com/neptune/) using the Uber
+In this lab we'll have the opportunity to get hands on experience with a graphs database. [AWS Neptune](https://aws.amazon.com/neptune/) using the Uber
 example we've been discussing during classes.
 
 ## Infrastructure
@@ -10,6 +10,11 @@ As in other labs we'll use an [AWS Cloudformation](https://aws.amazon.com/cloudf
 1. Scroll down to the `Launch the Neptune-SageMaker stack` section and click on the 'Launch Stack' button on your preferred Region (if no preference, N.Virginia is usually cheaper)
 1. In the 'Quick create stack' shown window select the smallest possible DbInstanceType, mark the check boxes and click the 'Create Stack' orange button.
 1. Creation process should successfully finish after ~20 minutes. This time there are nested stacks! This time we're creating a [Neptune Workbench](https://docs.aws.amazon.com/neptune/latest/userguide/notebooks-visualization.html) instance that will allow us to visualize the graphs we're working with.
+1. Stop here. Let Carlos know you're done. We'll come back later.
+   
+
+## Practice time.
+1. The creation process should have successfully finished now.
 1. Follow the next two steps ('Start your notebook instance' and 'Browse and run the content') of [the tutorial](https://aws.amazon.com/blogs/database/analyze-amazon-neptune-graphs-using-amazon-sagemaker-jupyter-notebooks/).
 1. Now that you've interacted with a notebook and visualized a couple graphs let's create our Uber one.
     1. Go to the Jupyter explorer by clicking on the Jupyter icon on top of the screen.
