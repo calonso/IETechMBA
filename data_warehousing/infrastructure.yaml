@@ -1,0 +1,92 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  RedshiftCluster:
+    Type: AWS::Redshift::Cluster
+    DependsOn: AttachGateway
+    Properties:
+      ClusterType: single-node
+      NodeType: ds2.xlarge
+      DBName: uber_dw
+      MasterUsername: root
+      MasterUserPassword: r00tAtTechmba
+      ClusterParameterGroupName:
+        Ref: RedshiftClusterParameterGroup
+      VpcSecurityGroupIds:
+      - Ref: SecurityGroup
+      ClusterSubnetGroupName:
+        Ref: RedshiftClusterSubnetGroup
+      PubliclyAccessible: 'true'
+      Port: 5439
+  RedshiftClusterParameterGroup:
+    Type: AWS::Redshift::ClusterParameterGroup
+    Properties:
+      Description: Cluster parameter group
+      ParameterGroupFamily: redshift-1.0
+      Parameters:
+      - ParameterName: enable_user_activity_logging
+        ParameterValue: 'true'
+  RedshiftClusterSubnetGroup:
+    Type: AWS::Redshift::ClusterSubnetGroup
+    Properties:
+      Description: Cluster subnet group
+      SubnetIds:
+      - Ref: PublicSubnet
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+  PublicSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      CidrBlock: 10.0.0.0/24
+      VpcId:
+        Ref: VPC
+  SecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group
+      SecurityGroupIngress:
+      - CidrIp: 0.0.0.0/0
+        FromPort: 5439
+        ToPort: 5439
+        IpProtocol: tcp
+      VpcId:
+        Ref: VPC
+  myInternetGateway:
+    Type: AWS::EC2::InternetGateway
+  AttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: VPC
+      InternetGatewayId:
+        Ref: myInternetGateway
+  PublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: VPC
+  PublicRoute:
+    Type: AWS::EC2::Route
+    DependsOn: AttachGateway
+    Properties:
+      RouteTableId:
+        Ref: PublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId:
+        Ref: myInternetGateway
+  PublicSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: PublicSubnet
+      RouteTableId:
+        Ref: PublicRouteTable
+Outputs:
+  ClusterEndpoint:
+    Description: Cluster endpoint
+    Value: !Sub "${RedshiftCluster.Endpoint.Address}:${RedshiftCluster.Endpoint.Port}"
+  ClusterName:
+    Description: Name of cluster
+    Value:
+      Ref: RedshiftCluster
