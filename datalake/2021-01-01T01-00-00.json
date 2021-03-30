@@ -1,0 +1,7 @@
+{"type":"Driver","event":"create","arrival_time":"2021-01-01 00:00:00", "data": {"name": "Arwen Undomiel", "genre": "Female"}}
+{"type":"Client","event":"create","arrival_time":"2021-01-01 00:00:01", "data": {"name": "John Doe", "genre": "Male"}}
+{"type":"Car","event":"create","arrival_time":"2021-01-01 00:01:00", "data": {"brand": "Ford", "model": "Mustang"}}
+{"type":"Trip","event":"create","arrival_time":"2021-01-01 00:01:01", "data": {"client": "John Doe", "car": "Ford Mustang", "driver": "Arwen Undomiel"}}
+{"type":"Trip","event":"pick_up","arrival_time":"2021-01-01 00:01:01", "data": {"client": "John Doe", "car": "Ford Mustang", "driver": "Arwen Undomiel", "pick_up": "-40.265887,15.266558"}}
+{"type":"Trip","event":"finish","arrival_time":"2021-01-01 00:10:15", "data": {"client": "John Doe", "car": "Ford Mustang", "driver": "Arwen Undomiel", "pick_up": "-40.265887,15.266558", "drop_off":"-40.258778, 14.236589"}}
+{"type":"Driver","event":"create","arrival_time":"2021-01-01 00:15:00", "data": {"name": "Harry Potter", "genre": "Male"}}

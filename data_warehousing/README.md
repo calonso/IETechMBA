@@ -8,7 +8,7 @@ As in other labs we'll use an [AWS Cloudformation](https://aws.amazon.com/cloudf
 
 ## Insert data
 
-Now let's run some queries on our new data warehouse.
+Now let's add data to our new data warehouse.
 
 1. Click 'Services' and then 'Redshift' to open [the Redshift console](https://console.aws.amazon.com/redshiftv2/home)
 1. Select 'Clusters' on the left menu. Select the cluster name. Have a quick look at the information at hand.

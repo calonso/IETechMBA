@@ -1,0 +1,55 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  DatalakeBucket:
+   Type: AWS::S3::Bucket
+   Properties:
+     BucketName: !Sub "ie-tech-mba-datalake-${AWS::AccountId}-bucket"
+
+  AthenaOutputBucket:
+   Type: AWS::S3::Bucket
+   Properties:
+     BucketName: !Sub "athena-output-${AWS::AccountId}-bucket"
+
+  UberDatalake:
+    Type: "AWS::Glue::Database"
+    Properties:
+      DatabaseInput:
+        Name: uber
+      CatalogId: !Ref AWS::AccountId
+
+  events:
+    Type: AWS::Glue::Table
+    DependsOn: UberDatalake
+    Properties:
+      TableInput:
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: json
+          compressionType: none
+        PartitionKeys:
+          - Name: year
+            Type: int
+          - Name: month
+            Type: int
+          - Name: day
+            Type: int
+          - Name: hour
+            Type: int
+        StorageDescriptor:
+          Location: !Sub "s3://${DatalakeBucket}/"
+          InputFormat: "org.apache.hadoop.mapred.TextInputFormat"
+          OutputFormat: "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
+          SerdeInfo:
+            SerializationLibrary: org.apache.hive.hcatalog.data.JsonSerDe
+          Columns:
+            - Type: string
+              Name: type
+            - Type: string
+              Name: event
+            - Type: timestamp
+              Name: arrival_time
+            - Name: data
+              Type: struct<name:string,genre:string,brand:string,model:string,client:string,car:string,driver:string>
+        Name: events
+      DatabaseName: !Ref UberDatalake
+      CatalogId: !Ref AWS::AccountId

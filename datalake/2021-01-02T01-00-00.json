@@ -1,0 +1,8 @@
+{"type":"Driver","event":"delete","arrival_time":"2021-01-02 00:00:00", "data": {"name": "Arwen Undomiel"}}
+{"type":"Client","event":"create","arrival_time":"2021-01-02 00:00:01", "data": {"name": "Jane Doe", "genre": "Female"}}
+{"type":"Car","event":"create","arrival_time":"2021-01-02 00:01:00", "data": {"brand": "Renault", "model": "Clio"}}
+{"type":"Car","event":"create","arrival_time":"2021-01-02 00:02:00", "data": {"brand": "Opel", "model": "Astra"}}
+{"type":"Trip","event":"create","arrival_time":"2021-01-02 00:01:01", "data": {"client": "John Doe", "car": "Ford Mustang", "driver": "Harry Potter"}}
+{"type":"Trip","event":"pick_up","arrival_time":"2021-01-02 00:01:01", "data": {"client": "John Doe", "car": "Ford Mustang", "driver": "Harry Potter", "pick_up": "-40.265887,15.266558"}}
+{"type":"Trip","event":"finish","arrival_time":"2021-01-02 00:10:15", "data": {"client": "John Doe", "car": "Ford Mustang", "driver": "Harry Potter", "pick_up": "-40.265887,15.266558", "drop_off":"-40.258778, 14.236589"}}
+{"type":"Driver","event":"create","arrival_time":"2021-01-02 00:15:00", "data": {"name": "Rafael Nadal", "genre": "Male"}}
