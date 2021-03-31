@@ -47,6 +47,16 @@ I have created all the definition for you, all you need this time is to create t
         USE Uber;
         SELECT brand, model, color FROM cars;
       ```
-1. Activity: 
-   1. Can you tell which is the user that took the most trips? Tip: See [MySQL `COUNT()` aggregation](https://dev.mysql.com/doc/refman/8.0/en/aggregate-functions.html#function_count)
-   1. Can you tell which is the `MAX`imum `COUNT` of shifts a driver has ever drove?
+    1. Use the following to see how many trips happened in total.
+      ```sql
+        USE Uber;
+        SELECT COUNT(*) FROM trips;
+      ```
+
+## Activity:
+
+Can you tell which is the user that took the most trips? Tip: See [MySQL `COUNT()` aggregation](https://dev.mysql.com/doc/refman/8.0/en/aggregate-functions.html#function_count), specifically where it refers to aggregating (or grouping) over windows.
+
+## Challenge:
+
+Can you tell which is the `MAX`imum `COUNT` of shifts a driver has ever drove? Tip: See [MySQL `ORDER`](https://dev.mysql.com/doc/refman/8.0/en/sorting-rows.html) and [`LIMIT`](https://www.mysqltutorial.org/mysql-limit.aspx) clauses.
