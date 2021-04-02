@@ -1,0 +1,92 @@
+Resources:
+  S3DataSink:
+   Type: AWS::S3::Bucket
+   Properties:
+     BucketName: !Sub "ie-tech-mba-message-queue-sink-${AWS::AccountId}-bucket"
+
+  S3DataSinkFirehoseAccessRole:
+    Type: AWS::IAM::Role
+    Properties:
+     Description: "Role to grant Firehose access to the sink S3 bucket"
+     RoleName: "S3-firehose-access"
+     AssumeRolePolicyDocument:
+       Statement:
+         - Effect: Allow
+           Principal:
+             Service:
+               - firehose.amazonaws.com
+           Action: "sts:AssumeRole"
+     Policies:
+       - PolicyName: "S3-data-sink-firehose-access-policy"
+         PolicyDocument:
+           Statement:
+           - Effect: Allow
+             Action:
+               - "s3:AbortMultipartUpload"
+               - "s3:GetBucketLocation"
+               - "s3:GetObject"
+               - "s3:ListBucket"
+               - "s3:ListBucketMultipartUploads"
+               - "s3:PutObject"
+             Resource:
+               - !GetAtt S3DataSink.Arn
+               - !Sub "${S3DataSink.Arn}/*"
+
+  DeliveryStream:
+    Type: AWS::KinesisFirehose::DeliveryStream
+    Properties:
+      DeliveryStreamName: "ie-tech-mba-stream"
+      DeliveryStreamType: DirectPut
+      ExtendedS3DestinationConfiguration:
+        BucketARN: !GetAtt S3DataSink.Arn
+        BufferingHints:
+          IntervalInSeconds: 60
+          SizeInMBs: 1
+        CompressionFormat: GZIP
+        ErrorOutputPrefix: errors/result=!{firehose:error-output-type}/!{timestamp:yyyy/MM/dd}/
+        RoleARN: !GetAtt S3DataSinkFirehoseAccessRole.Arn
+        Prefix: "year=!{timestamp:yyyy}/month=!{timestamp:MM}/day=!{timestamp:dd}/hour=!{timestamp:HH}/"
+
+  Datalake:
+    Type: "AWS::Glue::Database"
+    Properties:
+      DatabaseInput:
+        Name: kinesistest
+      CatalogId: !Ref AWS::AccountId
+
+  Events:
+    Type: AWS::Glue::Table
+    DependsOn: Datalake
+    Properties:
+      TableInput:
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: json
+          compressionType: gzip
+        PartitionKeys:
+          - Name: year
+            Type: int
+          - Name: month
+            Type: int
+          - Name: day
+            Type: int
+          - Name: hour
+            Type: int
+        StorageDescriptor:
+          Location: !Sub "s3://${S3DataSink}/"
+          InputFormat: "org.apache.hadoop.mapred.TextInputFormat"
+          OutputFormat: "org.apache.hadoop.hive.ql.io.HiveIgnoreKeyTextOutputFormat"
+          SerdeInfo:
+            SerializationLibrary: org.apache.hive.hcatalog.data.JsonSerDe
+          Columns:
+            - Type: string
+              Name: ticker_symbol
+            - Type: string
+              Name: sector
+            - Type: float
+              Name: change
+            - Name: price
+              Type: float
+        Name: events
+      DatabaseName: !Ref Datalake
+      CatalogId: !Ref AWS::AccountId
