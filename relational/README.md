@@ -5,7 +5,7 @@ example we've been discussing during classes.
 ## Infrastructure
 
 First thing we need to do is to create the infrastructure for the lab. An AWS Aurora cluster in this instance. 
-To create we'll use [AWS Cloudformation](https://aws.amazon.com/cloudformation/). AWS' *infrastructure as code* solution. 
+To manage infrastructure we'll use [AWS Cloudformation](https://aws.amazon.com/cloudformation/). AWS' *infrastructure as code* solution. 
 I have created all the definition for you, all you need this time is to create the infrastructure that I've defined for you in your personal or student AWS account.
 
 1. Sign in to [your AWS console](https://aws.amazon.com/console/)
@@ -19,6 +19,10 @@ I have created all the definition for you, all you need this time is to create t
    1. Nothing to do in this 'Configure stack options' screen. Just click 'Next'
    1. Nothing to do in this 'Review' screen. Just scroll to the bottom and click 'Create stack'
    1. Creation process should finish successfully after ~5 minutes. Take a look at the `infrastructure.yaml` file and what you see on screen (click the refresh button often) to understand what is being created.
+
+
+## Create schema and load data
+
 1. Now let's run some queries on our new database.    
    1. Click 'Services' and then 'RDS' to open the RDS (Relational Database Service) console.
    1. Click the 'Databases' menu on the left hand. Then you should see the newly created `techmbatestcluster` cluster. Play around a little bit to understand what's at hand.
@@ -31,6 +35,12 @@ I have created all the definition for you, all you need this time is to create t
       1. Click `Connect to Database` button.
    1. Now copy all the contents of the `uber.sql` file in this very same directory and paste them on the query editor, replacing anything that may be there.
    1. Review that all sentences executed successfully (there may be more than one page)
+   1. The schema we've created corresponds to the following entity-relationship diagram ![diagram](../images/uber-er.png)
+
+
+## Explore the data   
+
+
 1. Let's explore the data!
    1. Use the following to see which tables have been loaded.
       ```sql
