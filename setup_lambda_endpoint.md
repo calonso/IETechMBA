@@ -20,6 +20,7 @@ This lab will guide you through the process of setting up an endpoint in AWS Lam
 1. In the Designer section, click on the “Add trigger” button and select “API Gateway” from the list.
 1. Select “Create a new API” and set the security to “Open”, then click on the “Add” button.
 1. Scroll down to the “API Gateway” section in the designer. Click on the “API Gateway” trigger and set the “HTTP method” to “GET”.
+  1. Go to "Routes" inside the "Develop" menu -> Click on the only route displayed (should say "ANY") -> Click "Edit" -> Change "ANY" to "GET"
 1. Click on the “Save” button to save the changes to the function.
 1. In the top right corner of the screen, click on the “Deploy” button.
 1. In the “Actions” drop-down menu, click on “Deploy API”.
